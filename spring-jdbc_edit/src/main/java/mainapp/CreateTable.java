@@ -7,11 +7,11 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 
 public class CreateTable{
-    public static void main(String[] args) {
-        ApplicationContext ctx = new ClassPathXmlApplicationContext("Beans.xml");
-        JdbcTemplate jdbcTemplate = (JdbcTemplate) ctx.getBean("jdbcTemplate");
 
-        /* -------------- Create table user_info ----------------- */
+    public void createTable(){
+        JdbcTemplate jdbcTemplate;
+        ConnectBean connectBean = new ConnectBean();
+        jdbcTemplate=connectBean.getJdbcTemplate();
         String sql = "CREATE TABLE user_info (" +
                 "  id int(11) NOT NULL AUTO_INCREMENT," +
                 "  name varchar(45) DEFAULT NULL," +
@@ -19,7 +19,6 @@ public class CreateTable{
                 "  PRIMARY KEY (id)" +
                 ")";
         jdbcTemplate.execute(sql);
-        ((ClassPathXmlApplicationContext) ctx).close();
 
         System.out.println("Table is Created!");
     }
